@@ -1,0 +1,25 @@
+From 2e0d0c275e999a71fba1d3c55f16bed7233bc324 Mon Sep 17 00:00:00 2001
+From: 001247568 <lames.mohammed@student.tafesa.edu.au>
+Date: Sun, 6 Sep 2026 17:43:32 +0930
+Subject: [PATCH 3/5] changed the amountbalance to 50
+
+---
+ BankingApp/BankingApp/Banking.xaml.cs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/BankingApp/BankingApp/Banking.xaml.cs b/BankingApp/BankingApp/Banking.xaml.cs
+index 26734dc..2ce051e 100644
+--- a/BankingApp/BankingApp/Banking.xaml.cs
++++ b/BankingApp/BankingApp/Banking.xaml.cs
+@@ -13,7 +13,7 @@ namespace BankingApp
+         decimal cSavingsBalance = 4346.37m;
+         decimal cChequeBalance = 1386.37m;
+         decimal cInvestmentBalance = 3138.78m;
+-        decimal amountTransfer = 30.0m;
++        decimal amountTransfer = 50.0m;
+         decimal fromBalance = 4346.37m, toBalance = 1386.37m;
+ 
+         // use this two variables to keep track which radio button has clicked
+-- 
+2.55.0.windows.3
+

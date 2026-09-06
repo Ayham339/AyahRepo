@@ -1,0 +1,1683 @@
+From 1817b35a6badf212ae7947b3e0b10f24c1dfa140 Mon Sep 17 00:00:00 2001
+From: 001247568 <lames.mohammed@student.tafesa.edu.au>
+Date: Sun, 6 Sep 2026 17:25:09 +0930
+Subject: [PATCH 2/5] added banking app
+
+---
+ BankingApp/BankingApp.sln                     |  26 +++
+ BankingApp/BankingApp/App.config              |   6 +
+ BankingApp/BankingApp/App.xaml                |   9 +
+ BankingApp/BankingApp/App.xaml.cs             |  11 +
+ BankingApp/BankingApp/Banking.xaml            |  74 ++++++
+ BankingApp/BankingApp/Banking.xaml.cs         | 215 ++++++++++++++++++
+ BankingApp/BankingApp/BankingApp.csproj       | 148 ++++++++++++
+ BankingApp/BankingApp/Images/Arrow.GIF        | Bin 0 -> 10789 bytes
+ .../BankingApp/Images/ChequeAccount.jpg       | Bin 0 -> 12195 bytes
+ .../BankingApp/Images/InvestmentAccount.jpg   | Bin 0 -> 4175 bytes
+ .../BankingApp/Images/SavingsAccount.jpg      | Bin 0 -> 12327 bytes
+ BankingApp/BankingApp/MainWindow.xaml         |   9 +
+ BankingApp/BankingApp/MainWindow.xaml.cs      |  16 ++
+ .../BankingApp/Properties/AssemblyInfo.cs     |  53 +++++
+ .../Properties/Resources.Designer.cs          |  63 +++++
+ .../BankingApp/Properties/Resources.resx      | 117 ++++++++++
+ .../Properties/Settings.Designer.cs           |  26 +++
+ .../BankingApp/Properties/Settings.settings   |   7 +
+ 18 files changed, 780 insertions(+)
+ create mode 100644 BankingApp/BankingApp.sln
+ create mode 100644 BankingApp/BankingApp/App.config
+ create mode 100644 BankingApp/BankingApp/App.xaml
+ create mode 100644 BankingApp/BankingApp/App.xaml.cs
+ create mode 100644 BankingApp/BankingApp/Banking.xaml
+ create mode 100644 BankingApp/BankingApp/Banking.xaml.cs
+ create mode 100644 BankingApp/BankingApp/BankingApp.csproj
+ create mode 100644 BankingApp/BankingApp/Images/Arrow.GIF
+ create mode 100644 BankingApp/BankingApp/Images/ChequeAccount.jpg
+ create mode 100644 BankingApp/BankingApp/Images/InvestmentAccount.jpg
+ create mode 100644 BankingApp/BankingApp/Images/SavingsAccount.jpg
+ create mode 100644 BankingApp/BankingApp/MainWindow.xaml
+ create mode 100644 BankingApp/BankingApp/MainWindow.xaml.cs
+ create mode 100644 BankingApp/BankingApp/Properties/AssemblyInfo.cs
+ create mode 100644 BankingApp/BankingApp/Properties/Resources.Designer.cs
+ create mode 100644 BankingApp/BankingApp/Properties/Resources.resx
+ create mode 100644 BankingApp/BankingApp/Properties/Settings.Designer.cs
+ create mode 100644 BankingApp/BankingApp/Properties/Settings.settings
+
+diff --git a/BankingApp/BankingApp.sln b/BankingApp/BankingApp.sln
+new file mode 100644
+index 0000000..6e961ba
+--- /dev/null
++++ b/BankingApp/BankingApp.sln
+@@ -0,0 +1,26 @@
++﻿
++Microsoft Visual Studio Solution File, Format Version 12.00
++# Visual Studio Version 16
++VisualStudioVersion = 16.0.32802.440
++MinimumVisualStudioVersion = 10.0.40219.1
++Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingApp", "BankingApp\BankingApp.csproj", "{DFCE66F2-9D8A-4D57-8180-FEAF7FC7DAA8}"
++EndProject
++Global
++	GlobalSection(SolutionConfigurationPlatforms) = preSolution
++		Debug|Any CPU = Debug|Any CPU
++		Release|Any CPU = Release|Any CPU
++		Description = used for Session 6
++	EndGlobalSection
++	GlobalSection(ProjectConfigurationPlatforms) = postSolution
++		{DFCE66F2-9D8A-4D57-8180-FEAF7FC7DAA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
++		{DFCE66F2-9D8A-4D57-8180-FEAF7FC7DAA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
++		{DFCE66F2-9D8A-4D57-8180-FEAF7FC7DAA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
++		{DFCE66F2-9D8A-4D57-8180-FEAF7FC7DAA8}.Release|Any CPU.Build.0 = Release|Any CPU
++	EndGlobalSection
++	GlobalSection(SolutionProperties) = preSolution
++		HideSolutionNode = FALSE
++	EndGlobalSection
++	GlobalSection(ExtensibilityGlobals) = postSolution
++		SolutionGuid = {A132E59D-67E1-4ADE-99D7-CC1AD1E4C653}
++	EndGlobalSection
++EndGlobal
+diff --git a/BankingApp/BankingApp/App.config b/BankingApp/BankingApp/App.config
+new file mode 100644
+index 0000000..4bfa005
+--- /dev/null
++++ b/BankingApp/BankingApp/App.config
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<configuration>
++    <startup> 
++        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8"/>
++    </startup>
++</configuration>
+diff --git a/BankingApp/BankingApp/App.xaml b/BankingApp/BankingApp/App.xaml
+new file mode 100644
+index 0000000..f7d7d39
+--- /dev/null
++++ b/BankingApp/BankingApp/App.xaml
+@@ -0,0 +1,9 @@
++﻿<Application x:Class="BankingApp.App"
++             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
++             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
++             StartupUri="Banking.xaml">
++    <Application.Resources>
++         
++        
++    </Application.Resources>
++</Application>
+diff --git a/BankingApp/BankingApp/App.xaml.cs b/BankingApp/BankingApp/App.xaml.cs
+new file mode 100644
+index 0000000..5e66382
+--- /dev/null
++++ b/BankingApp/BankingApp/App.xaml.cs
+@@ -0,0 +1,11 @@
++﻿using System.Windows;
++
++namespace BankingApp
++{
++    /// <summary>
++    /// Interaction logic for App.xaml
++    /// </summary>
++    public partial class App : Application
++    {
++    }
++}
+diff --git a/BankingApp/BankingApp/Banking.xaml b/BankingApp/BankingApp/Banking.xaml
+new file mode 100644
+index 0000000..4c12163
+--- /dev/null
++++ b/BankingApp/BankingApp/Banking.xaml
+@@ -0,0 +1,74 @@
++﻿<Window x:Class="BankingApp.Banking"
++        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
++        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
++        Title="Banking" Height="312.46" Width="724.6">
++    <Window.Resources>
++        <ResourceDictionary>
++            <BitmapImage x:Key="savingsImage" UriSource="/BankingApp;component/Images/SavingsAccount.jpg" />
++            <BitmapImage x:Key="chequeImage" UriSource="/BankingApp;component/Images/ChequeAccount.jpg" />
++            <BitmapImage x:Key="investmentImage" UriSource="/BankingApp;component/Images/InvestmentAccount.jpg" />
++        </ResourceDictionary>
++    </Window.Resources>
++
++    <Grid Margin="0,0,-6.6,-1.8">
++        <Grid  HorizontalAlignment="Left" Margin="22,26,0,0" VerticalAlignment="Top" >
++            <Grid.RowDefinitions>
++                <RowDefinition Height="135" />
++                <RowDefinition Height="Auto" />
++            </Grid.RowDefinitions>
++            <Grid.ColumnDefinitions>
++                <ColumnDefinition Width="140" />
++                <ColumnDefinition Width="140" />
++            </Grid.ColumnDefinitions>
++            <GroupBox Header="From Account:" Grid.Row="0">
++                <StackPanel Orientation="Vertical"   >
++                    <RadioButton Name="fromSavingsRadioButton" Content="Savings" Margin="10" IsChecked="True" Click="fromSavingsRadioButton_Click"/>
++                    <RadioButton Name="fromChequeRadioButton" Content="Cheque"  Margin="10" Click="fromChequeRadioButton_Click"/>
++                    <RadioButton Name="fromInvestmentRadioButton" Content="Investment" Margin="10"  Click="fromInvestmentRadioButton_Click" />
++                </StackPanel>
++            </GroupBox>
++            <Border Grid.Column="1" Grid.Row="0" Margin="10,10,10,0" BorderThickness="1" BorderBrush="LightGray">
++                <Image Name="fromImage" Source="/BankingApp;component/Images/SavingsAccount.jpg"   />
++            </Border>
++
++            <Label Name="fromBalanceLabel" Content="$4,346.37" Height="28" HorizontalAlignment="Left"  Grid.Column="1" Grid.Row="1"  VerticalAlignment="Top" />
++            <Label Content="Balance:" Height="28" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Top" Width="134" HorizontalContentAlignment="Right" />
++
++        </Grid>
++        <Grid  HorizontalAlignment="Left" Margin="389,27,0,0" VerticalAlignment="Top" >
++            <Grid.RowDefinitions>
++                <RowDefinition Height="135" />
++                <RowDefinition Height="Auto" />
++            </Grid.RowDefinitions>
++            <Grid.ColumnDefinitions>
++                <ColumnDefinition Width="140" />
++                <ColumnDefinition Width="140" />
++            </Grid.ColumnDefinitions>
++            <GroupBox Header="To Account:" Grid.Row="0">
++                <StackPanel Orientation="Vertical"   >
++                    <RadioButton Name="toSavingsRadioButton" Content="Savings" Margin="10" Click="toSavingsRadioButton_Click" />
++                    <RadioButton Name="toChequeRadioButton" Content="Cheque"  Margin="10"  IsChecked="True" Click="toChequeRadioButton_Click" />
++                    <RadioButton Name="toInvestmentRadioButton" Content="Investment" Margin="10" Click="toInvestmentRadioButton_Click"  />
++                </StackPanel>
++            </GroupBox>
++            <Border Grid.Column="1" Grid.Row="0" Margin="10,10,10,0" BorderThickness="1" 
++                   BorderBrush="LightGray">
++                <Image Name="toImage" Source="/BankingApp;component/Images/ChequeAccount.jpg" Height="123" Margin="0.2,0.2,0.2,0" VerticalAlignment="Top" />
++
++            </Border>
++
++
++            <Label Name="toBalanceLabel" Content="$1,386.37" Height="28" HorizontalAlignment="Left"  Grid.Column="1" Grid.Row="1"  VerticalAlignment="Top" />
++            <Label Content="Balance:" Height="28" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Top" Width="134" HorizontalContentAlignment="Right" />
++
++        </Grid>
++
++        <TextBox Name="amountTextBox" Height="23" HorizontalAlignment="Left" Margin="138,205,0,0"  VerticalAlignment="Top" Width="71" />
++        <Button Name="transferButton" Content="Transfer" Height="23" HorizontalAlignment="Left" Margin="227,205,0,0"  VerticalAlignment="Top" Width="75" Click="transferButton_Click" />
++        <Image Height="55" HorizontalAlignment="Left" Margin="307,76,0,0" Stretch="Fill" VerticalAlignment="Top" Width="79" Source="/BankingApp;component/Images/Arrow.GIF" />
++        <Label Content="Amount to Transfer:" Height="28" HorizontalAlignment="Left" Margin="16,202,0,0" VerticalAlignment="Top" />
++        <Button Content="Exit" Height="23" HorizontalAlignment="Left" Margin="622,236,0,0" Name="exitButton" VerticalAlignment="Top" Width="75" Click="exitButton_Click" />
++        <Label Content="Bank Accounts Transfer System" HorizontalAlignment="Left" Height="27" Margin="131,0,0,0" VerticalAlignment="Top" Width="282" FontSize="14" FontWeight="Bold"/>
++
++    </Grid>
++</Window>
+diff --git a/BankingApp/BankingApp/Banking.xaml.cs b/BankingApp/BankingApp/Banking.xaml.cs
+new file mode 100644
+index 0000000..26734dc
+--- /dev/null
++++ b/BankingApp/BankingApp/Banking.xaml.cs
+@@ -0,0 +1,215 @@
++﻿using System;
++using System.Windows;
++using System.Windows.Input;
++using System.Windows.Media;
++
++namespace BankingApp
++{
++    /// <summary>
++    /// Interaction logic for Banking.xaml
++    /// </summary>
++    public partial class Banking : Window
++    {
++        decimal cSavingsBalance = 4346.37m;
++        decimal cChequeBalance = 1386.37m;
++        decimal cInvestmentBalance = 3138.78m;
++        decimal amountTransfer = 30.0m;
++        decimal fromBalance = 4346.37m, toBalance = 1386.37m;
++
++        // use this two variables to keep track which radio button has clicked
++        string fromRadioButtonChecked = "SavingsRadioButtonOn";
++        String toRadioButtonChecked = "ChequeRadioButtonOn";
++        public Banking()
++        {
++            InitializeComponent();
++        }
++
++        private void exitButton_Click(object sender, RoutedEventArgs e)
++        {
++            this.Close();
++        }
++
++
++        private void fromChequeRadioButton_Checked(object sender, RoutedEventArgs e)
++        {
++
++        }
++
++        private void fromInvestmentRadioButton_Checked(object sender, RoutedEventArgs e)
++        {
++        }
++
++        private void transferButton_Click(object sender, RoutedEventArgs e)
++        {
++            // working out the transfer amount
++
++            // validate transfer amount input
++            try
++            {
++                amountTransfer = decimal.Parse(amountTextBox.Text);
++            }
++            catch (FormatException)   // e.g. can trap error like 1000.50a
++            {
++                MessageBox.Show("Error! Please enter a valid amount");
++                Keyboard.Focus(amountTextBox);
++                amountTextBox.SelectAll();
++            }
++            catch (ArithmeticException)  // e.g. can trap error like a number divide by zero which may not happen in our case
++            {
++                MessageBox.Show("Error (Arithematic Expression)! Please enter a valid numeric amount");
++                Keyboard.Focus(amountTextBox);
++                amountTextBox.SelectAll();
++            }
++            catch (Exception)  // e.g. can trap general error  which may not happen in our case
++            {
++                MessageBox.Show("Error (General Exception)! Please enter a valid numeric amount");
++                Keyboard.Focus(amountTextBox);
++                amountTextBox.SelectAll();
++            }
++
++            if (amountTransfer < 0)  // error with negative transfer
++            {
++                MessageBox.Show("Error! You have negative amount. Enter another amount");
++                Keyboard.Focus(amountTextBox);
++                amountTextBox.SelectAll();
++            }
++            else
++            // Handle insufficient fund
++                if (amountTransfer > fromBalance)
++            {
++                MessageBox.Show("Error! You have insufficient fund. Enter another amount");
++                Keyboard.Focus(amountTextBox);
++                amountTextBox.SelectAll();
++            }
++            else
++            {
++                // Test which From radio button and which To radio button are on and calculate appropriate balance
++                string whichRadioButtonsAreChecked = fromRadioButtonChecked + "&" + toRadioButtonChecked;
++                switch (whichRadioButtonsAreChecked)
++                {
++
++                    case "SavingsRadioButtonOn&SavingsRadioButtonOn":  // from Savings to Savings
++                        MessageBox.Show("Error - cannot transfer from Savings to Savings");
++                        break;
++
++                    case "ChequeRadioButtonOn&ChequeRadioButtonOn":  // from Cheque to Cheque
++                        MessageBox.Show("Error - cannot transfer from Cheque to Cheque");
++                        break;
++
++                    case "InvestmentRadioButtonOn&InvestmentRadioButtonOn":  // from Investment to Investment
++                        MessageBox.Show("Error - cannot transfer from Investment to Investment");
++                        break;
++
++
++                    case "SavingsRadioButtonOn&ChequeRadioButtonOn":  // from Savings to Cheque
++                        fromBalance = fromBalance - amountTransfer;
++                        cSavingsBalance = fromBalance;
++                        fromBalanceLabel.Content = cSavingsBalance.ToString("C");
++
++                        toBalance = toBalance + amountTransfer;
++                        cChequeBalance = toBalance;
++                        toBalanceLabel.Content = cChequeBalance.ToString("C");
++                        break;
++
++                    case "SavingsRadioButtonOn&InvestmentRadioButtonOn":   // from Saving to Investment
++                        fromBalance = fromBalance - amountTransfer;
++                        cSavingsBalance = fromBalance;
++                        fromBalanceLabel.Content = cSavingsBalance.ToString("C");
++
++                        toBalance = toBalance + amountTransfer;
++                        cInvestmentBalance = toBalance;
++                        toBalanceLabel.Content = cInvestmentBalance.ToString("C");
++                        break;
++
++                    case "ChequeRadioButtonOn&SavingsRadioButtonOn":  // from Cheque to Savings
++                        fromBalance = fromBalance - amountTransfer;
++                        cChequeBalance = fromBalance;
++                        fromBalanceLabel.Content = cChequeBalance.ToString("C");
++
++                        toBalance = toBalance + amountTransfer;
++                        cSavingsBalance = toBalance;
++                        toBalanceLabel.Content = cSavingsBalance.ToString("C");
++                        break;
++
++                    case "ChequeRadioButtonOn&InvestmentRadioButtonOn":   // from Cheque to Investment
++                        fromBalance = fromBalance - amountTransfer;
++                        cChequeBalance = fromBalance;
++                        fromBalanceLabel.Content = cChequeBalance.ToString("C");
++
++                        toBalance = toBalance + amountTransfer;
++                        cInvestmentBalance = toBalance;
++                        toBalanceLabel.Content = cInvestmentBalance.ToString("C");
++                        break;
++
++                    case "InvestmentRadioButtonOn&SavingsRadioButtonOn":  // from Investment to Saving
++                        fromBalance = fromBalance - amountTransfer;
++                        cInvestmentBalance = fromBalance;
++                        fromBalanceLabel.Content = cInvestmentBalance.ToString("C");
++
++                        toBalance = toBalance + amountTransfer;
++                        cSavingsBalance = toBalance;
++                        toBalanceLabel.Content = cSavingsBalance.ToString("C");
++                        break;
++
++                    case "InvestmentRadioButtonOn&ChequeRadioButtonOn":  //from Investment to Cheque
++                        fromBalance = fromBalance - amountTransfer;
++                        cInvestmentBalance = fromBalance;
++                        fromBalanceLabel.Content = cInvestmentBalance.ToString("C");
++
++                        toBalance = toBalance + amountTransfer;
++                        cChequeBalance = toBalance;
++                        toBalanceLabel.Content = cChequeBalance.ToString("C");
++                        break;
++                }
++            }
++        }
++
++        private void toSavingsRadioButton_Click(object sender, RoutedEventArgs e)
++        {
++            toImage.Source = (ImageSource)Resources["savingsImage"];  // Change fromImage to ChequeAccount image
++            toBalanceLabel.Content = cSavingsBalance.ToString("C");  // Change the from Balance to the Savings Account balance
++            toBalance = cSavingsBalance;
++            toRadioButtonChecked = "SavingsRadioButtonOn"; // this variable only stored a string
++        }
++
++        private void toChequeRadioButton_Click(object sender, RoutedEventArgs e)
++        {
++            toImage.Source = (ImageSource)Resources["chequeImage"];  // Change fromImage to ChequeAccount image
++            toBalanceLabel.Content = cChequeBalance.ToString("C");  // Change the from Balance to the Savings Account balance
++            toBalance = cChequeBalance;
++            toRadioButtonChecked = "ChequeRadioButtonOn"; // this variable only stored a string
++        }
++
++        private void toInvestmentRadioButton_Click(object sender, RoutedEventArgs e)
++        {
++            toImage.Source = (ImageSource)Resources["investmentImage"];  // Change fromImage to ChequeAccount image
++            toBalanceLabel.Content = cInvestmentBalance.ToString("C");  // Change the from Balance to the Savings Account balance
++            toBalance = cInvestmentBalance;
++            toRadioButtonChecked = "InvestmentRadioButtonOn"; // this variable only stored a string
++        }
++
++        private void fromSavingsRadioButton_Click(object sender, RoutedEventArgs e)
++        {
++            fromImage.Source = (ImageSource)Resources["savingsImage"];  // Change fromImage to ChequeAccount image
++            fromBalanceLabel.Content = cSavingsBalance.ToString("C");  // Change the from Balance to the Savings Account balance
++            fromBalance = cSavingsBalance;
++            fromRadioButtonChecked = "SavingsRadioButtonOn";   // this variable only stored a string
++        }
++
++        private void fromChequeRadioButton_Click(object sender, RoutedEventArgs e)
++        {
++            fromImage.Source = (ImageSource)Resources["chequeImage"];  // Change fromImage to ChequeAccount image
++            fromBalanceLabel.Content = cChequeBalance.ToString("C");  // Change the from Balance to the Savings Account balance
++            fromBalance = cChequeBalance;
++            fromRadioButtonChecked = "ChequeRadioButtonOn";  // this variable only stored a string
++        }
++
++        private void fromInvestmentRadioButton_Click(object sender, RoutedEventArgs e)
++        {
++            fromImage.Source = (ImageSource)Resources["investmentImage"];  // Change fromImage to ChequeAccount image
++            fromBalanceLabel.Content = cInvestmentBalance.ToString("C");  // Change the from Balance to the Savings Account balance
++            fromBalance = cInvestmentBalance;
++            fromRadioButtonChecked = "InvestmentRadioButtonOn";  // this variable only stored a string
++        }
++    }
++}
+diff --git a/BankingApp/BankingApp/BankingApp.csproj b/BankingApp/BankingApp/BankingApp.csproj
+new file mode 100644
+index 0000000..bd028b6
+--- /dev/null
++++ b/BankingApp/BankingApp/BankingApp.csproj
+@@ -0,0 +1,148 @@
++﻿<?xml version="1.0" encoding="utf-8"?>
++<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
++  <PropertyGroup>
++    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
++    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
++    <ProjectGuid>{DFCE66F2-9D8A-4D57-8180-FEAF7FC7DAA8}</ProjectGuid>
++    <OutputType>WinExe</OutputType>
++    <AppDesignerFolder>Properties</AppDesignerFolder>
++    <RootNamespace>BankingApp</RootNamespace>
++    <AssemblyName>BankingApp</AssemblyName>
++    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
++    <FileAlignment>512</FileAlignment>
++    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
++    <WarningLevel>4</WarningLevel>
++    <PublishUrl>publish\</PublishUrl>
++    <Install>true</Install>
++    <InstallFrom>Disk</InstallFrom>
++    <UpdateEnabled>false</UpdateEnabled>
++    <UpdateMode>Foreground</UpdateMode>
++    <UpdateInterval>7</UpdateInterval>
++    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
++    <UpdatePeriodically>false</UpdatePeriodically>
++    <UpdateRequired>false</UpdateRequired>
++    <MapFileExtensions>true</MapFileExtensions>
++    <ApplicationRevision>0</ApplicationRevision>
++    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
++    <IsWebBootstrapper>false</IsWebBootstrapper>
++    <UseApplicationTrust>false</UseApplicationTrust>
++    <BootstrapperEnabled>true</BootstrapperEnabled>
++    <TargetFrameworkProfile />
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
++    <PlatformTarget>AnyCPU</PlatformTarget>
++    <DebugSymbols>true</DebugSymbols>
++    <DebugType>full</DebugType>
++    <Optimize>false</Optimize>
++    <OutputPath>bin\Debug\</OutputPath>
++    <DefineConstants>DEBUG;TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
++    <PlatformTarget>AnyCPU</PlatformTarget>
++    <DebugType>pdbonly</DebugType>
++    <Optimize>true</Optimize>
++    <OutputPath>bin\Release\</OutputPath>
++    <DefineConstants>TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <PropertyGroup>
++    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
++  </PropertyGroup>
++  <ItemGroup>
++    <Reference Include="System" />
++    <Reference Include="System.Data" />
++    <Reference Include="System.Xml" />
++    <Reference Include="Microsoft.CSharp" />
++    <Reference Include="System.Core" />
++    <Reference Include="System.Xml.Linq" />
++    <Reference Include="System.Data.DataSetExtensions" />
++    <Reference Include="System.Xaml">
++      <RequiredTargetFramework>4.0</RequiredTargetFramework>
++    </Reference>
++    <Reference Include="WindowsBase" />
++    <Reference Include="PresentationCore" />
++    <Reference Include="PresentationFramework" />
++  </ItemGroup>
++  <ItemGroup>
++    <ApplicationDefinition Include="App.xaml">
++      <Generator>MSBuild:Compile</Generator>
++      <SubType>Designer</SubType>
++    </ApplicationDefinition>
++    <Page Include="Banking.xaml">
++      <SubType>Designer</SubType>
++      <Generator>MSBuild:Compile</Generator>
++    </Page>
++    <Page Include="MainWindow.xaml">
++      <Generator>MSBuild:Compile</Generator>
++      <SubType>Designer</SubType>
++    </Page>
++    <Compile Include="App.xaml.cs">
++      <DependentUpon>App.xaml</DependentUpon>
++      <SubType>Code</SubType>
++    </Compile>
++    <Compile Include="Banking.xaml.cs">
++      <DependentUpon>Banking.xaml</DependentUpon>
++    </Compile>
++    <Compile Include="MainWindow.xaml.cs">
++      <DependentUpon>MainWindow.xaml</DependentUpon>
++      <SubType>Code</SubType>
++    </Compile>
++  </ItemGroup>
++  <ItemGroup>
++    <Compile Include="Properties\AssemblyInfo.cs">
++      <SubType>Code</SubType>
++    </Compile>
++    <Compile Include="Properties\Resources.Designer.cs">
++      <AutoGen>True</AutoGen>
++      <DesignTime>True</DesignTime>
++      <DependentUpon>Resources.resx</DependentUpon>
++    </Compile>
++    <Compile Include="Properties\Settings.Designer.cs">
++      <AutoGen>True</AutoGen>
++      <DependentUpon>Settings.settings</DependentUpon>
++      <DesignTimeSharedInput>True</DesignTimeSharedInput>
++    </Compile>
++    <EmbeddedResource Include="Properties\Resources.resx">
++      <Generator>ResXFileCodeGenerator</Generator>
++      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
++    </EmbeddedResource>
++    <None Include="Properties\Settings.settings">
++      <Generator>SettingsSingleFileGenerator</Generator>
++      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
++    </None>
++    <AppDesigner Include="Properties\" />
++  </ItemGroup>
++  <ItemGroup>
++    <None Include="App.config" />
++  </ItemGroup>
++  <ItemGroup>
++    <Resource Include="Images\Arrow.GIF" />
++    <Resource Include="Images\ChequeAccount.jpg" />
++    <Resource Include="Images\InvestmentAccount.jpg" />
++    <Resource Include="Images\SavingsAccount.jpg" />
++  </ItemGroup>
++  <ItemGroup>
++    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
++      <Visible>False</Visible>
++      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
++      <Install>true</Install>
++    </BootstrapperPackage>
++    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
++      <Visible>False</Visible>
++      <ProductName>.NET Framework 3.5 SP1</ProductName>
++      <Install>false</Install>
++    </BootstrapperPackage>
++  </ItemGroup>
++  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
++  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
++       Other similar extension points exist, see Microsoft.Common.targets.
++  <Target Name="BeforeBuild">
++  </Target>
++  <Target Name="AfterBuild">
++  </Target>
++  -->
++</Project>
+\ No newline at end of file
+diff --git a/BankingApp/BankingApp/Images/Arrow.GIF b/BankingApp/BankingApp/Images/Arrow.GIF
+new file mode 100644
+index 0000000000000000000000000000000000000000..4df0644593bfcf10c133e5aa43307f5074e245fc
+GIT binary patch
+literal 10789
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/BankingApp/BankingApp/Images/ChequeAccount.jpg b/BankingApp/BankingApp/Images/ChequeAccount.jpg
+new file mode 100644
+index 0000000000000000000000000000000000000000..f6b1371f78549624362ff33a882f3aa0beaeade1
+GIT binary patch
+literal 12195
+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
+HfL{1-$ft%`
+
+literal 0
+HcmV?d00001
+
+diff --git a/BankingApp/BankingApp/Images/InvestmentAccount.jpg b/BankingApp/BankingApp/Images/InvestmentAccount.jpg
+new file mode 100644
+index 0000000000000000000000000000000000000000..b7fd412eb570c12c13ec3ea6b2f245c67c654453
+GIT binary patch
+literal 4175
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/BankingApp/BankingApp/Images/SavingsAccount.jpg b/BankingApp/BankingApp/Images/SavingsAccount.jpg
+new file mode 100644
+index 0000000000000000000000000000000000000000..df76791eacea0b60c471d8e17815a18c123eef33
+GIT binary patch
+literal 12327
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/BankingApp/BankingApp/MainWindow.xaml b/BankingApp/BankingApp/MainWindow.xaml
+new file mode 100644
+index 0000000..11e2ef1
+--- /dev/null
++++ b/BankingApp/BankingApp/MainWindow.xaml
+@@ -0,0 +1,9 @@
++﻿<Window x:Class="BankingApp.MainWindow"
++        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
++        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
++        Title="MainWindow" Height="350" Width="525">
++    <Grid>
++        
++        
++    </Grid>
++</Window>
+diff --git a/BankingApp/BankingApp/MainWindow.xaml.cs b/BankingApp/BankingApp/MainWindow.xaml.cs
+new file mode 100644
+index 0000000..c3153a4
+--- /dev/null
++++ b/BankingApp/BankingApp/MainWindow.xaml.cs
+@@ -0,0 +1,16 @@
++﻿using System.Windows;
++
++
++namespace BankingApp
++{
++    /// <summary>
++    /// Interaction logic for MainWindow.xaml
++    /// </summary>
++    public partial class MainWindow : Window
++    {
++        public MainWindow()
++        {
++            InitializeComponent();
++        }
++    }
++}
+diff --git a/BankingApp/BankingApp/Properties/AssemblyInfo.cs b/BankingApp/BankingApp/Properties/AssemblyInfo.cs
+new file mode 100644
+index 0000000..914ce1e
+--- /dev/null
++++ b/BankingApp/BankingApp/Properties/AssemblyInfo.cs
+@@ -0,0 +1,53 @@
++﻿using System.Reflection;
++using System.Runtime.InteropServices;
++using System.Windows;
++
++// General Information about an assembly is controlled through the following 
++// set of attributes. Change these attribute values to modify the information
++// associated with an assembly.
++[assembly: AssemblyTitle("BankingApp")]
++[assembly: AssemblyDescription("")]
++[assembly: AssemblyConfiguration("")]
++[assembly: AssemblyCompany("")]
++[assembly: AssemblyProduct("BankingApp")]
++[assembly: AssemblyCopyright("Copyright ©  2017")]
++[assembly: AssemblyTrademark("")]
++[assembly: AssemblyCulture("")]
++
++// Setting ComVisible to false makes the types in this assembly not visible 
++// to COM components.  If you need to access a type in this assembly from 
++// COM, set the ComVisible attribute to true on that type.
++[assembly: ComVisible(false)]
++
++//In order to begin building localizable applications, set 
++//<UICulture>CultureYouAreCodingWith</UICulture> in your .csproj file
++//inside a <PropertyGroup>.  For example, if you are using US english
++//in your source files, set the <UICulture> to en-US.  Then uncomment
++//the NeutralResourceLanguage attribute below.  Update the "en-US" in
++//the line below to match the UICulture setting in the project file.
++
++//[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
++
++
++[assembly: ThemeInfo(
++    ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
++                                     //(used if a resource is not found in the page, 
++                                     // or application resource dictionaries)
++    ResourceDictionaryLocation.SourceAssembly //where the generic resource dictionary is located
++                                              //(used if a resource is not found in the page, 
++                                              // app, or any theme specific resource dictionaries)
++)]
++
++
++// Version information for an assembly consists of the following four values:
++//
++//      Major Version
++//      Minor Version 
++//      Build Number
++//      Revision
++//
++// You can specify all the values or you can default the Build and Revision Numbers 
++// by using the '*' as shown below:
++// [assembly: AssemblyVersion("1.0.*")]
++[assembly: AssemblyVersion("1.0.0.0")]
++[assembly: AssemblyFileVersion("1.0.0.0")]
+diff --git a/BankingApp/BankingApp/Properties/Resources.Designer.cs b/BankingApp/BankingApp/Properties/Resources.Designer.cs
+new file mode 100644
+index 0000000..e68601c
+--- /dev/null
++++ b/BankingApp/BankingApp/Properties/Resources.Designer.cs
+@@ -0,0 +1,63 @@
++﻿//------------------------------------------------------------------------------
++// <auto-generated>
++//     This code was generated by a tool.
++//     Runtime Version:4.0.30319.42000
++//
++//     Changes to this file may cause incorrect behavior and will be lost if
++//     the code is regenerated.
++// </auto-generated>
++//------------------------------------------------------------------------------
++
++namespace BankingApp.Properties {
++    using System;
++    
++    
++    /// <summary>
++    ///   A strongly-typed resource class, for looking up localized strings, etc.
++    /// </summary>
++    // This class was auto-generated by the StronglyTypedResourceBuilder
++    // class via a tool like ResGen or Visual Studio.
++    // To add or remove a member, edit your .ResX file then rerun ResGen
++    // with the /str option, or rebuild your VS project.
++    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
++    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
++    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
++    internal class Resources {
++        
++        private static global::System.Resources.ResourceManager resourceMan;
++        
++        private static global::System.Globalization.CultureInfo resourceCulture;
++        
++        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
++        internal Resources() {
++        }
++        
++        /// <summary>
++        ///   Returns the cached ResourceManager instance used by this class.
++        /// </summary>
++        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
++        internal static global::System.Resources.ResourceManager ResourceManager {
++            get {
++                if (object.ReferenceEquals(resourceMan, null)) {
++                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BankingApp.Properties.Resources", typeof(Resources).Assembly);
++                    resourceMan = temp;
++                }
++                return resourceMan;
++            }
++        }
++        
++        /// <summary>
++        ///   Overrides the current thread's CurrentUICulture property for all
++        ///   resource lookups using this strongly typed resource class.
++        /// </summary>
++        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
++        internal static global::System.Globalization.CultureInfo Culture {
++            get {
++                return resourceCulture;
++            }
++            set {
++                resourceCulture = value;
++            }
++        }
++    }
++}
+diff --git a/BankingApp/BankingApp/Properties/Resources.resx b/BankingApp/BankingApp/Properties/Resources.resx
+new file mode 100644
+index 0000000..af7dbeb
+--- /dev/null
++++ b/BankingApp/BankingApp/Properties/Resources.resx
+@@ -0,0 +1,117 @@
++﻿<?xml version="1.0" encoding="utf-8"?>
++<root>
++  <!-- 
++    Microsoft ResX Schema 
++    
++    Version 2.0
++    
++    The primary goals of this format is to allow a simple XML format 
++    that is mostly human readable. The generation and parsing of the 
++    various data types are done through the TypeConverter classes 
++    associated with the data types.
++    
++    Example:
++    
++    ... ado.net/XML headers & schema ...
++    <resheader name="resmimetype">text/microsoft-resx</resheader>
++    <resheader name="version">2.0</resheader>
++    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
++    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
++    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
++    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
++    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
++        <value>[base64 mime encoded serialized .NET Framework object]</value>
++    </data>
++    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
++        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
++        <comment>This is a comment</comment>
++    </data>
++                
++    There are any number of "resheader" rows that contain simple 
++    name/value pairs.
++    
++    Each data row contains a name, and value. The row also contains a 
++    type or mimetype. Type corresponds to a .NET class that support 
++    text/value conversion through the TypeConverter architecture. 
++    Classes that don't support this are serialized and stored with the 
++    mimetype set.
++    
++    The mimetype is used for serialized objects, and tells the 
++    ResXResourceReader how to depersist the object. This is currently not 
++    extensible. For a given mimetype the value must be set accordingly:
++    
++    Note - application/x-microsoft.net.object.binary.base64 is the format 
++    that the ResXResourceWriter will generate, however the reader can 
++    read any of the formats listed below.
++    
++    mimetype: application/x-microsoft.net.object.binary.base64
++    value   : The object must be serialized with 
++            : System.Serialization.Formatters.Binary.BinaryFormatter
++            : and then encoded with base64 encoding.
++    
++    mimetype: application/x-microsoft.net.object.soap.base64
++    value   : The object must be serialized with 
++            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
++            : and then encoded with base64 encoding.
++
++    mimetype: application/x-microsoft.net.object.bytearray.base64
++    value   : The object must be serialized into a byte array 
++            : using a System.ComponentModel.TypeConverter
++            : and then encoded with base64 encoding.
++    -->
++  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
++    <xsd:element name="root" msdata:IsDataSet="true">
++      <xsd:complexType>
++        <xsd:choice maxOccurs="unbounded">
++          <xsd:element name="metadata">
++            <xsd:complexType>
++              <xsd:sequence>
++                <xsd:element name="value" type="xsd:string" minOccurs="0" />
++              </xsd:sequence>
++              <xsd:attribute name="name" type="xsd:string" />
++              <xsd:attribute name="type" type="xsd:string" />
++              <xsd:attribute name="mimetype" type="xsd:string" />
++            </xsd:complexType>
++          </xsd:element>
++          <xsd:element name="assembly">
++            <xsd:complexType>
++              <xsd:attribute name="alias" type="xsd:string" />
++              <xsd:attribute name="name" type="xsd:string" />
++            </xsd:complexType>
++          </xsd:element>
++          <xsd:element name="data">
++            <xsd:complexType>
++              <xsd:sequence>
++                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
++                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
++              </xsd:sequence>
++              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
++              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
++              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
++            </xsd:complexType>
++          </xsd:element>
++          <xsd:element name="resheader">
++            <xsd:complexType>
++              <xsd:sequence>
++                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
++              </xsd:sequence>
++              <xsd:attribute name="name" type="xsd:string" use="required" />
++            </xsd:complexType>
++          </xsd:element>
++        </xsd:choice>
++      </xsd:complexType>
++    </xsd:element>
++  </xsd:schema>
++  <resheader name="resmimetype">
++    <value>text/microsoft-resx</value>
++  </resheader>
++  <resheader name="version">
++    <value>2.0</value>
++  </resheader>
++  <resheader name="reader">
++    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
++  </resheader>
++  <resheader name="writer">
++    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
++  </resheader>
++</root>
+\ No newline at end of file
+diff --git a/BankingApp/BankingApp/Properties/Settings.Designer.cs b/BankingApp/BankingApp/Properties/Settings.Designer.cs
+new file mode 100644
+index 0000000..27c16db
+--- /dev/null
++++ b/BankingApp/BankingApp/Properties/Settings.Designer.cs
+@@ -0,0 +1,26 @@
++﻿//------------------------------------------------------------------------------
++// <auto-generated>
++//     This code was generated by a tool.
++//     Runtime Version:4.0.30319.42000
++//
++//     Changes to this file may cause incorrect behavior and will be lost if
++//     the code is regenerated.
++// </auto-generated>
++//------------------------------------------------------------------------------
++
++namespace BankingApp.Properties {
++    
++    
++    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
++    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.9.0.0")]
++    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
++        
++        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
++        
++        public static Settings Default {
++            get {
++                return defaultInstance;
++            }
++        }
++    }
++}
+diff --git a/BankingApp/BankingApp/Properties/Settings.settings b/BankingApp/BankingApp/Properties/Settings.settings
+new file mode 100644
+index 0000000..033d7a5
+--- /dev/null
++++ b/BankingApp/BankingApp/Properties/Settings.settings
+@@ -0,0 +1,7 @@
++﻿<?xml version='1.0' encoding='utf-8'?>
++<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
++  <Profiles>
++    <Profile Name="(Default)" />
++  </Profiles>
++  <Settings />
++</SettingsFile>
+\ No newline at end of file
+-- 
+2.55.0.windows.3
+

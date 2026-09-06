@@ -1,0 +1,25 @@
+From ff89a682bfb3dea1cd7128233a5896281641dce3 Mon Sep 17 00:00:00 2001
+From: 001247568 <lames.mohammed@student.tafesa.edu.au>
+Date: Sun, 6 Sep 2026 17:48:14 +0930
+Subject: [PATCH 4/5] changed to 70
+
+---
+ BankingApp/BankingApp/Banking.xaml.cs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/BankingApp/BankingApp/Banking.xaml.cs b/BankingApp/BankingApp/Banking.xaml.cs
+index 2ce051e..ef5a6f4 100644
+--- a/BankingApp/BankingApp/Banking.xaml.cs
++++ b/BankingApp/BankingApp/Banking.xaml.cs
+@@ -13,7 +13,7 @@ namespace BankingApp
+         decimal cSavingsBalance = 4346.37m;
+         decimal cChequeBalance = 1386.37m;
+         decimal cInvestmentBalance = 3138.78m;
+-        decimal amountTransfer = 50.0m;
++        decimal amountTransfer = 70.0m;
+         decimal fromBalance = 4346.37m, toBalance = 1386.37m;
+ 
+         // use this two variables to keep track which radio button has clicked
+-- 
+2.55.0.windows.3
+
